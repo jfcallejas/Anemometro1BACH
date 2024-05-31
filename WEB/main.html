@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anemometro</title>
+    <link rel="stylesheet" href="styless.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sub1">
+            <div class="subconainer">
+                <div class="fila1">
+                    <h1>VELOCIDAD DEL VIENTO</h1>
+                </div>
+                <div class="fila2">
+                    <h2 id="velocidad"></h2>
+                    <h3>m/s</h3>
+                </div>
+                <div class="fila3">
+                    <h6><i>IES Domingo Valdivieso</i></h6>
+                    <div class="imgdiv">
+                        <a href="https://www.murciaeduca.es/iesdomingovaldivieso/sitio/"><img src="Logo_IES_Domingo_Valdviieso.jpg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="names">
+                <p>Juan Francisco Callejas Alvarez, Pedro Martinez Celdran, Kevin Jhonson Neira Suarez 
+                    y Luis Mario Quizhpe Gonzalez</p>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <!-- Incluye los SDKs de Firebase -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js";
+      
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrzwSn33iP_w9_x2rSjt454RC6ueOE2Eg",
+            authDomain: "bach-anemometro.firebaseapp.com",
+            databaseURL: "https://bach-anemometro-default-rtdb.firebaseio.com",
+            projectId: "bach-anemometro",
+            storageBucket: "bach-anemometro.appspot.com",
+            messagingSenderId: "559394173978",
+            appId: "1:559394173978:web:fb4fbefcbcdd980cba4da3"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        const database = getDatabase(app);
+
+        var velocidadh4 = document.getElementById("velocidad");
+
+        
+        const velocidadref = ref(database, "velocidad");
+
+        onValue(velocidadref, (snapshot) => {
+            const velocidad = snapshot.val();
+            if (velocidad !== null) {
+                velocidadh4.innerHTML = velocidad;
+            } else {
+                velocidadh4.innerHTML = "No se encontró el valor.";
+            }
+        }, (error) => {
+            console.error("Error al leer el valor de la base de datos:", error);
+            velocidadh4.innerHTML = "Error al leer el valor.";
+        });
+      </script>
+
+</body>
+</html>
